@@ -10,4 +10,9 @@ public class MoveCam : MonoBehaviour
     {
         transform.position = cameraPosition.position;
     }
+
+    private void FixedUpdate()
+    {
+        
+    }
 }

@@ -45,12 +45,11 @@ public class PlayerCamera : MonoBehaviour
 
     private void FixedUpdate()
     {
-
     }
 
     private void LateUpdate()
     {
-        RotateCamera();
+        //RotateCamera();
     }
 
     private void GetMouseInput()
