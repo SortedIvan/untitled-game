@@ -32,13 +32,13 @@ public class PlayerMovement : MonoBehaviour
         CheckPlayerSprinting();
         // Perform grounded check
         grounded = Physics.Raycast(transform.position, Vector3.down, 2f, ground);
+        ApplyFriction();
     }
 
     private void FixedUpdate()
     {
         // Movement (especially physics) should be done here
         MovePlayer();
-        ApplyFriction();
     }
 
     private void GetPlayerInput()
@@ -54,22 +54,23 @@ public class PlayerMovement : MonoBehaviour
 
     private void MovePlayer()
     {
-        // Since it is a camera based input
         _moveDirection = orientation.forward * _verticalInput + orientation.right * _horizontalInput;
         if (_isPlayerSprint)
         {
-            _playerRb.AddForce(_moveDirection.normalized * movementSpeed * 10f * sprintMultiplier, ForceMode.Force);
+            _playerRb.AddForce(_moveDirection.normalized * (movementSpeed + sprintMultiplier) * 10f, ForceMode.Force);
         }
         _playerRb.AddForce(_moveDirection.normalized * movementSpeed * 10f, ForceMode.Force);
-
     }
 
     private void ApplyFriction()
     {
         if (grounded)
         {
-            Vector3 currentVelocity = _playerRb.velocity;
-            _playerRb.velocity = currentVelocity * 0.9f;
+            _playerRb.drag = groundDrag;
+        }
+        else if (!grounded)
+        {
+            _playerRb.drag = 0;
         }
     }
 
