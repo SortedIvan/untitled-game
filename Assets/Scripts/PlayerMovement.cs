@@ -116,10 +116,21 @@ public class PlayerMovement : MonoBehaviour
     private void SpeedControl()
     {
         Vector3 flatVel = new Vector3(_playerRb.velocity.x, 0f, _playerRb.velocity.z);
-        if (flatVel.magnitude > movementSpeed)
+        if (_isPlayerSprint)
         {
-            Vector3 limitedVel = flatVel.normalized * movementSpeed;
-            _playerRb.velocity = new Vector3(limitedVel.x, _playerRb.velocity.y, limitedVel.z);
+            if (flatVel.magnitude > (movementSpeed + sprintMultiplier))
+            {
+                Vector3 limitedVel = flatVel.normalized * (movementSpeed + sprintMultiplier);
+                _playerRb.velocity = new Vector3(limitedVel.x, _playerRb.velocity.y, limitedVel.z);
+            }
+        }
+        else if (!_isPlayerSprint)
+        {
+            if (flatVel.magnitude > movementSpeed)
+            {
+                Vector3 limitedVel = flatVel.normalized * movementSpeed;
+                _playerRb.velocity = new Vector3(limitedVel.x, _playerRb.velocity.y, limitedVel.z);
+            }
         }
     }
 
