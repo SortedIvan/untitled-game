@@ -20,6 +20,7 @@ public class PlayerMovement : MonoBehaviour
     public float airMultiplier;
     public float fallMultiplier;
     public float lowJumpMultiplier;
+    public float airDrag;
 
     [Header("Keybinds")]
     public KeyCode jumpKey;
@@ -58,6 +59,10 @@ public class PlayerMovement : MonoBehaviour
     {
         // Movement (especially physics) should be done here
         MovePlayer();
+        if (!grounded)
+        {
+            
+        }
     }
 
     private void GetPlayerInput()
@@ -109,7 +114,8 @@ public class PlayerMovement : MonoBehaviour
         }
         else if (!grounded)
         {
-            _playerRb.drag = 0;
+            _playerRb.drag = airDrag;
+            
         }
     }
 
@@ -149,10 +155,10 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-
-
     private void ResetJump()
     {
         _isReadyToJump = true;
     }
+
+    
 }

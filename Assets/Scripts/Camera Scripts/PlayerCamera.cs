@@ -11,12 +11,6 @@ public class PlayerCamera : MonoBehaviour
     public float cameraDownConstraint;
     public float cameraUpConstraint;
 
-    public Material testMaterial;
-    public Material whiteMaterial;
-    public float pickUpRange;
-    public float pickUpRadius;
-
-
     private float _yRotation;
     private float _xRotation;
     private float _yInput;
@@ -46,8 +40,6 @@ public class PlayerCamera : MonoBehaviour
     {
         GetMouseInput();
         RotateCamera();
-
-        ShootRay();
     }
 
     private void FixedUpdate()
@@ -77,21 +69,7 @@ public class PlayerCamera : MonoBehaviour
         playerOrientation.transform.rotation = Quaternion.Euler(0, _yRotation, 0);
     }
 
-    private void ShootRay()
-    {
-        Transform cameraTransform = Camera.main.transform;
-        RaycastHit HitInfo;
-        if (Physics.SphereCast(cameraTransform.position, pickUpRadius,cameraTransform.forward, out HitInfo, pickUpRange))
-        {
-            Debug.DrawRay(cameraTransform.position, cameraTransform.forward * pickUpRange, Color.yellow);
-            if (HitInfo.transform.gameObject.name.Equals("Sword"))
-            {
-                HitInfo.transform.gameObject.GetComponent<MeshRenderer>().material = testMaterial;
-                Debug.Log(HitInfo.transform.gameObject.name);
-            }
-    
-        }
-    }
+
 
    
 
