@@ -422,7 +422,6 @@ GameObject:
   - component: {fileID: 201222710}
   - component: {fileID: 201222709}
   - component: {fileID: 201222713}
-  - component: {fileID: 201222714}
   m_Layer: 0
   m_Name: Sword
   m_TagString: Selectable
@@ -531,22 +530,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 201222707}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a96aa9aceb7a85d4b9596903e761b29e, type: 3}
+  m_Script: {fileID: 11500000, guid: a1225f46137dbe145966f3b20bec610a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!135 &201222714
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 201222707}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 2.32759
-  m_Center: {x: 0.054384846, y: -0.00000092651624, z: 0}
+  woodData: {fileID: 11400000, guid: 923129dca72b9d945a25993d6691c5e3, type: 2}
 --- !u!1 &206348752
 GameObject:
   m_ObjectHideFlags: 0
@@ -2047,6 +2034,50 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1707857941
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1707857943}
+  - component: {fileID: 1707857942}
+  m_Layer: 0
+  m_Name: Inventory
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1707857942
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1707857941}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6271e254e7ef2944cb848f16b88cdd02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inventory: []
+--- !u!4 &1707857943
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1707857941}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 13.22746, y: 4.52421, z: -15.03576}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1713873576
 GameObject:
   m_ObjectHideFlags: 0
@@ -2270,6 +2301,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a96aa9aceb7a85d4b9596903e761b29e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stoneData: {fileID: 11400000, guid: 88f62ab72985b574f97936c7cbd0c467, type: 2}
 --- !u!54 &1847166929
 Rigidbody:
   m_ObjectHideFlags: 0
