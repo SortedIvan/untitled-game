@@ -13,12 +13,14 @@ public class Inventory : MonoBehaviour
     {
         Stone.OnStonePickedUp += AddToInventory;
         Wood.OnWoodPickedUp += AddToInventory;
+        Arrow.OnArrowPickedUp += AddToInventory;
     }
 
     private void OnDisable()
     {
         Stone.OnStonePickedUp -= AddToInventory;
         Wood.OnWoodPickedUp -= AddToInventory;
+        Arrow.OnArrowPickedUp -= AddToInventory;
     }
 
     public void AddToInventory(ItemData itemData)
