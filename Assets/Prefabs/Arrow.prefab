@@ -118,6 +118,7 @@ MonoBehaviour:
   _arrowTorque: 5
   _arrowRb: {fileID: -8317598609278685733}
   _firePower: 10
+  _shootPoint: {fileID: 0}
 --- !u!65 &5781044748583023854
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -129,5 +130,5 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.041618366, y: 0.075733505, z: 0.052559398}
-  m_Center: {x: 0.00040480494, y: 1.3350205e-15, z: -0.017696252}
+  m_Size: {x: 0.013033209, y: 0.014054319, z: 0.052559398}
+  m_Center: {x: 0.00022724911, y: -0.0010793452, z: -0.017696256}

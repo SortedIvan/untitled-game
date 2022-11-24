@@ -7,6 +7,7 @@ public class BowShooting : MonoBehaviour
     [SerializeField] private GameObject _arrowPrefab;
     [SerializeField] private Transform _shootPoint;
     [SerializeField] private float _maxForce;
+    [SerializeField] private float _forceMultiplier;
     private GameObject _currentArrow;
     private float _currentArrowForce;
 
@@ -26,15 +27,16 @@ public class BowShooting : MonoBehaviour
             }
             else if (!(_currentArrowForce >= _maxForce))
             {
-                _currentArrowForce += Time.deltaTime * 15f;
+                _currentArrowForce += Time.deltaTime * 5f * _forceMultiplier;
                 Debug.Log($"Force is: {_currentArrowForce}");
             }
         }
         if (Input.GetMouseButtonUp(0))
         {
-            Quaternion newRotation;/*= Quaternion.Euler(Camera.main.transform.forward);*/
+            Quaternion newRotation; /*= Quaternion.Euler(Camera.main.transform.forward);*/
             newRotation = Quaternion.LookRotation(Camera.main.transform.forward);
             _currentArrow = Instantiate(_arrowPrefab, _shootPoint.position, newRotation);
+            //_currentArrow = Instantiate(_arrowPrefab);
             _currentArrow.GetComponent<ArrowProjectile>().SetForce(_currentArrowForce);
             _currentArrowForce = 0f;
             _currentArrow = null;
