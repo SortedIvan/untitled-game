@@ -9,6 +9,7 @@ public class ArrowProjectile : MonoBehaviour
     [SerializeField] private Rigidbody _arrowRb;
     [SerializeField] private float _firePower;
     [SerializeField] private GameObject _shootPoint;
+    private GameObject _player;
 
     private bool _startRotating;
     private string _enemyTag;
@@ -17,15 +18,21 @@ public class ArrowProjectile : MonoBehaviour
 
     private void Start()
     {
+        _player = GameObject.Find("Player");
         _startRotating = false;
         //_shootPoint = GameObject.Find("ShootPoint");
         //transform.position = _shootPoint.transform.position;
         //var arrowRay = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
-        transform.rotation = Quaternion.LookRotation(Camera.main.transform.forward);
+        //transform.rotation = Quaternion.LookRotation(Camera.main.transform.forward);
         //transform.rotation = Quaternion.LookRotation(arrowRay.direction);
+    }
+
+    public void ShootArrow()
+    {
+        
         Fire();
         StartCoroutine(Delay());
-        Destroy(gameObject, 3f);
+        //Destroy(gameObject, 3f);
     }
 
     private IEnumerator Delay()
@@ -45,8 +52,8 @@ public class ArrowProjectile : MonoBehaviour
         }
         else if (_didHit)
         {
-            //this.transform.position = _anchor.transform.position;
-            //this.transform.rotation = _anchor.transform.rotation;
+            this.transform.position = _anchor.transform.position;
+            this.transform.rotation = _anchor.transform.rotation;
         }
     }
 
@@ -72,16 +79,20 @@ public class ArrowProjectile : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        _didHit = true;
-        //this.transform.position = collision.GetContact(0).point;
-        //this.transform.GetComponent<BoxCollider>().isTrigger = true;
-        //GameObject arrowAnchor = new GameObject("ARROW_ANCHOR");
-        //arrowAnchor.transform.position = this.transform.position;
-        //arrowAnchor.transform.rotation = this.transform.rotation;
-        //arrowAnchor.transform.parent = collision.transform;
-        //_anchor = arrowAnchor;
-
-        //Destroy(_arrowRb);
+        if (!collision.gameObject.tag.Equals("Player"))
+        {
+           
+            //this.transform.position = collision.GetContact(0).point;
+            this.transform.GetComponent<BoxCollider>().isTrigger = true;
+            GameObject arrowAnchor = new GameObject("ARROW_ANCHOR");
+            arrowAnchor.transform.position = this.transform.position;
+            arrowAnchor.transform.rotation = this.transform.rotation;
+            arrowAnchor.transform.parent = collision.transform;
+            _anchor = arrowAnchor;
+            Destroy(_arrowRb);
+            _didHit = true;
+        }
+        Physics.IgnoreCollision(collision.collider, this.transform.GetComponent<BoxCollider>());
         //transform.SetParent(collision.transform);
     }
 
