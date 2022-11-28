@@ -2579,6 +2579,7 @@ Transform:
   - {fileID: 1254030591}
   - {fileID: 106740654}
   - {fileID: 2093887278}
+  - {fileID: 1639773782}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2657,15 +2658,18 @@ MonoBehaviour:
   throwForceWeapons: 10
   _playerHands: {fileID: 2093887278}
   sphereCastRadius: 0.202
-  range: 9.1
-  _pullForce: 10
-  _maxRangeWeaponPickup: 15
+  range: 13.1
+  _pullForce: 3
+  _maxRangeWeaponPickup: 20
+  _pullTowardsTest: {fileID: 1639773781}
   layerMask:
     serializedVersion: 2
     m_Bits: 0
   gamePlayBow: {fileID: 6387253543748996210, guid: a7235d5a72ca416409e3edbcde60fe20, type: 3}
   bowPosition: {fileID: 2075473867}
   bowPickablePrefab: {fileID: 8035933360324217415, guid: 1dc13617f542cbc40b621b321ac38a2b, type: 3}
+  _weaponInRange: {fileID: 0}
+  _weaponIsInRange: 0
 --- !u!1 &1617038579
 GameObject:
   m_ObjectHideFlags: 0
@@ -2767,6 +2771,36 @@ MonoBehaviour:
   playerOrientation: {fileID: 798661333}
   cameraDownConstraint: 0
   cameraUpConstraint: 0
+--- !u!1 &1639773781
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1639773782}
+  m_Layer: 0
+  m_Name: PullTowardsTest
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1639773782
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1639773781}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.501, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1522562271}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1645167815
 GameObject:
   m_ObjectHideFlags: 0
@@ -3794,6 +3828,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2093887278}
+  - component: {fileID: 2093887279}
   m_Layer: 0
   m_Name: HandsPlaceholder
   m_TagString: Untagged
@@ -3815,6 +3850,19 @@ Transform:
   m_Father: {fileID: 1522562271}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &2093887279
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2093887277}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1.5035266, z: 1}
+  m_Center: {x: 0, y: -0.2517611, z: 0}
 --- !u!1 &2140206779
 GameObject:
   m_ObjectHideFlags: 0

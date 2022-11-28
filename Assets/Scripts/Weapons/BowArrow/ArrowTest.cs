@@ -46,9 +46,6 @@ public class ArrowTest : MonoBehaviour
 
                 // IF NO RIGIDBODY
 
-
-                
-
             }
         }
         // Store arrow position;

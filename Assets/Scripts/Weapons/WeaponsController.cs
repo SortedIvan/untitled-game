@@ -13,18 +13,25 @@ public class WeaponsController : MonoBehaviour
     [Range(1f, 100f)] public float range;
     [SerializeField] private float _pullForce;
     [SerializeField] private float _maxRangeWeaponPickup;
+    [SerializeField] private GameObject _pullTowardsTest;
+    private bool playerIsPulling;
     public LayerMask layerMask;
-
 
     [Header("Bow&Arrow")]
     [SerializeField] GameObject gamePlayBow;
     [SerializeField] GameObject bowPosition;
     [SerializeField] GameObject bowPickablePrefab;
     private bool _isBowEquipped = true;
+    private BowTest _bowTestRef;
 
+    [SerializeField] private GameObject _weaponInRange;
+    [SerializeField] private bool _weaponIsInRange = false;
+    private Vector3 _weaponVelocityRef = Vector3.zero;
 
-    private GameObject _weaponInRange;
-    private bool _weaponIsInRange = false;
+    private void Start()
+    {
+        //_bowTestRef = gamePlayBow.GetComponent<BowTest>();
+    }
 
     private void Update()
     {
@@ -32,6 +39,7 @@ public class WeaponsController : MonoBehaviour
         ThrowBow();
         DetectWeapon();
         ResetWeaponInRange();
+        
     }
 
     private void FixedUpdate()
@@ -95,13 +103,40 @@ public class WeaponsController : MonoBehaviour
         {
             if (Input.GetMouseButton(1))
             {
-                _weaponInRange.transform.position = Vector3.Lerp(
-                _weaponInRange.transform.position, _playerHands.position, Time.deltaTime * _pullForce);
+                playerIsPulling = true;
+                // Testing between Vector3.Lerp & Vector3.SmoothDamp
+                _weaponInRange.transform.position = Vector3.Slerp(
+                _weaponInRange.transform.position, _pullTowardsTest.transform.position, 0.13f/*Time.deltaTime * _pullForce*/);
+                //Vector3 targetPosition = _playerHands.TransformPoint(new Vector3(0, 0.5f, 0));
+                Debug.Log("Pulling weapon");
+                //_weaponInRange.GetComponent<Rigidbody>().velocity = Vector3.SmoothDamp(
+                //GetComponent<Rigidbody>().velocity, _player.GetComponent<Rigidbody>().velocity, ref _weaponVelocityRef, Time.deltaTime * _pullForce);
+
+            }
+            else if (Input.GetMouseButtonUp(1) && playerIsPulling)
+            {
+                playerIsPulling = false;
             }
         }
     }
 
 
+    
+    // TODO: Move this onto another part (maybe hands)
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (playerIsPulling && collision.gameObject.tag.Equals("Weapon"))
+        {
+            if (_weaponInRange && _weaponIsInRange)
+            {
+                // FOR TESTING PURPOSES
+                _isBowEquipped = true;
+                //_bowTestRef.Reload();
+                Destroy(collision.gameObject);
+                Debug.Log("HI");
+            }
+        }
+    }
     private void OnDrawGizmos()
     {
         Gizmos.DrawWireSphere(transform.position, range);

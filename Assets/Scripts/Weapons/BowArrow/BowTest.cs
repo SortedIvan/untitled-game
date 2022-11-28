@@ -27,6 +27,11 @@ public class BowTest : MonoBehaviour
         
     }
 
+    private void OnEnable()
+    {
+        Reload();
+    }
+
     private void Start()
     {
         StartCoroutine(CreateArrow(0.0f));
