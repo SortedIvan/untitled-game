@@ -27,6 +27,10 @@ public class WeaponsController : MonoBehaviour
     [SerializeField] GameObject bowPickablePrefab;
     private bool _bowIsEqupped;
 
+    [Header("Shotgun")]
+    [SerializeField] GameObject shotgunPosition;
+    [SerializeField] GameObject shotgunPickablePrefab;
+    private bool _shotgunIsEqupped;
 
 
 
@@ -37,7 +41,7 @@ public class WeaponsController : MonoBehaviour
 
     private void Update()
     {
-        ThrowBow();
+        ThrowWeapon();
         DetectWeapon();
         ResetWeaponInRange();
         if (Input.GetMouseButton(1))
@@ -77,25 +81,53 @@ public class WeaponsController : MonoBehaviour
             _bowIsEqupped = true;
             _weaponIsEquipped = true;
         }
-    }
 
-    private void ThrowBow()
-    {
-        if (_bowIsEqupped && Input.GetKeyDown(KeyCode.Q))
+        if (weapon.Contains("ShotgunPickable"))
         {
-            bowPosition.SetActive(false);
-            _bowIsEqupped = false;
-            _weaponIsEquipped = false;
-
-            bowPickablePrefab.transform.rotation = bowPosition.transform.rotation;
-            bowPickablePrefab.transform.position = bowPosition.transform.position;
-            GameObject bowThrowed = Instantiate(bowPickablePrefab);
-            bowThrowed.transform.parent = null;
-            Debug.Log(bowThrowed.transform.position);
-            Debug.Log(Camera.main.transform.forward);
-            bowThrowed.GetComponent<Rigidbody>().velocity = Camera.main.transform.forward * throwForceWeapons;
+            shotgunPosition.SetActive(true);
+            _shotgunIsEqupped = true;
+            _weaponIsEquipped = true;
         }
     }
+
+    private void ThrowWeapon()
+    {
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            if (_bowIsEqupped)
+            {
+                bowPosition.SetActive(false);
+                _bowIsEqupped = false;
+                _weaponIsEquipped = false;
+
+                bowPickablePrefab.transform.rotation = bowPosition.transform.rotation;
+                bowPickablePrefab.transform.position = bowPosition.transform.position;
+                GameObject bowThrowed = Instantiate(bowPickablePrefab);
+                bowThrowed.transform.parent = null;
+                Debug.Log(bowThrowed.transform.position);
+                Debug.Log(Camera.main.transform.forward);
+                bowThrowed.GetComponent<Rigidbody>().velocity = Camera.main.transform.forward * throwForceWeapons;
+            }
+            if (_shotgunIsEqupped)
+            {
+                shotgunPosition.SetActive(false);
+                _shotgunIsEqupped = false;
+                _weaponIsEquipped = false;
+
+                shotgunPickablePrefab.transform.rotation = shotgunPosition.transform.rotation;
+                shotgunPickablePrefab.transform.position = shotgunPosition.transform.position;
+                GameObject shotgunThrowed = Instantiate(shotgunPickablePrefab);
+                shotgunThrowed.transform.parent = null;
+                Debug.Log(shotgunThrowed.transform.position);
+                Debug.Log(Camera.main.transform.forward);
+                shotgunThrowed.GetComponent<Rigidbody>().velocity = Camera.main.transform.forward * throwForceWeapons;
+            }
+        }
+
+    }
+
+
+
 
     private void ResetWeaponInRange()
     {
