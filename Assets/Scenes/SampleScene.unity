@@ -2657,19 +2657,15 @@ MonoBehaviour:
   _playerOrientation: {fileID: 0}
   throwForceWeapons: 10
   _playerHands: {fileID: 2093887278}
-  sphereCastRadius: 0.202
-  range: 13.1
   _pullForce: 3
   _maxRangeWeaponPickup: 20
   _pullTowardsTest: {fileID: 1639773781}
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 0
-  gamePlayBow: {fileID: 6387253543748996210, guid: a7235d5a72ca416409e3edbcde60fe20, type: 3}
-  bowPosition: {fileID: 2075473867}
-  bowPickablePrefab: {fileID: 8035933360324217415, guid: 1dc13617f542cbc40b621b321ac38a2b, type: 3}
+  sphereCastRadius: 0.202
+  range: 13.1
   _weaponInRange: {fileID: 0}
   _weaponIsInRange: 0
+  bowPosition: {fileID: 2075473867}
+  bowPickablePrefab: {fileID: 8035933360324217415, guid: 1dc13617f542cbc40b621b321ac38a2b, type: 3}
 --- !u!1 &1617038579
 GameObject:
   m_ObjectHideFlags: 0
@@ -3803,7 +3799,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2075473868
 Transform:
   m_ObjectHideFlags: 0

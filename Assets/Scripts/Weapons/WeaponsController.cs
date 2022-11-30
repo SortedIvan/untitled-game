@@ -9,59 +9,88 @@ public class WeaponsController : MonoBehaviour
     [SerializeField] private Transform _playerOrientation;
     [SerializeField] float throwForceWeapons;
     [SerializeField] private Transform _playerHands;
-    [Range(0.1f, 1f)] public float sphereCastRadius;
-    [Range(1f, 100f)] public float range;
     [SerializeField] private float _pullForce;
     [SerializeField] private float _maxRangeWeaponPickup;
     [SerializeField] private GameObject _pullTowardsTest;
+    [Range(0.1f, 1f)] public float sphereCastRadius;
+    [Range(1f, 100f)] public float range;
     private bool playerIsPulling;
-    public LayerMask layerMask;
 
-    [Header("Bow&Arrow")]
-    [SerializeField] GameObject gamePlayBow;
-    [SerializeField] GameObject bowPosition;
-    [SerializeField] GameObject bowPickablePrefab;
-    private bool _isBowEquipped = true;
-    private BowTest _bowTestRef;
-
+    [Header("Main weapon logic")]
     [SerializeField] private GameObject _weaponInRange;
     [SerializeField] private bool _weaponIsInRange = false;
-    private Vector3 _weaponVelocityRef = Vector3.zero;
+    private bool _weaponIsEquipped = false;
+
+
+    [Header("Bow&Arrow")]
+    [SerializeField] GameObject bowPosition;
+    [SerializeField] GameObject bowPickablePrefab;
+    private bool _bowIsEqupped;
+
+
+
 
     private void Start()
     {
-        //_bowTestRef = gamePlayBow.GetComponent<BowTest>();
+
     }
 
     private void Update()
     {
-        CheckIfBowEquipped();
         ThrowBow();
         DetectWeapon();
         ResetWeaponInRange();
-        
+        if (Input.GetMouseButton(1))
+        {
+            if (_weaponInRange && _weaponIsInRange)
+            {
+                playerIsPulling = true;
+            }
+        }
+        if (Input.GetMouseButtonUp(1))
+        {
+            playerIsPulling = false;
+        }
     }
 
     private void FixedUpdate()
     {
-        PullWeapon();
+        if (playerIsPulling)
+        {
+            // Testing between Vector3.Lerp & Vector3.SmoothDamp
+            _weaponInRange.transform.position = Vector3.Slerp(
+            _weaponInRange.transform.position,
+            _pullTowardsTest.transform.position, 0.13f
+            /*Time.deltaTime * _pullForce*/);
+
+            Quaternion cameraRotation = Quaternion.LookRotation(Camera.main.transform.forward);
+            _weaponInRange.transform.rotation = Quaternion.Lerp(_weaponInRange.transform.rotation, cameraRotation, 0.13f);
+            Debug.Log("Pulling weapon");
+        }
     }
 
-    private void CheckIfBowEquipped()
+    private void CheckIfWeaponEquipped(string weapon)
     {
-        bowPosition.SetActive(_isBowEquipped); 
+        if (weapon.Contains("BowPickable"))
+        {
+            bowPosition.SetActive(true);
+            _bowIsEqupped = true;
+            _weaponIsEquipped = true;
+        }
     }
 
     private void ThrowBow()
     {
-        if (_isBowEquipped && Input.GetKeyDown(KeyCode.Q))
+        if (_bowIsEqupped && Input.GetKeyDown(KeyCode.Q))
         {
+            bowPosition.SetActive(false);
+            _bowIsEqupped = false;
+            _weaponIsEquipped = false;
+
             bowPickablePrefab.transform.rotation = bowPosition.transform.rotation;
             bowPickablePrefab.transform.position = bowPosition.transform.position;
             GameObject bowThrowed = Instantiate(bowPickablePrefab);
-            _isBowEquipped = false;
             bowThrowed.transform.parent = null;
-            //bowThrowed.GetComponent<Rigidbody>().AddForce(Camera.main.transform.forward * throwForceWeapons, ForceMode.Impulse);
             Debug.Log(bowThrowed.transform.position);
             Debug.Log(Camera.main.transform.forward);
             bowThrowed.GetComponent<Rigidbody>().velocity = Camera.main.transform.forward * throwForceWeapons;
@@ -106,35 +135,38 @@ public class WeaponsController : MonoBehaviour
                 playerIsPulling = true;
                 // Testing between Vector3.Lerp & Vector3.SmoothDamp
                 _weaponInRange.transform.position = Vector3.Slerp(
-                _weaponInRange.transform.position, _pullTowardsTest.transform.position, 0.13f/*Time.deltaTime * _pullForce*/);
-                //Vector3 targetPosition = _playerHands.TransformPoint(new Vector3(0, 0.5f, 0));
-                Debug.Log("Pulling weapon");
-                //_weaponInRange.GetComponent<Rigidbody>().velocity = Vector3.SmoothDamp(
-                //GetComponent<Rigidbody>().velocity, _player.GetComponent<Rigidbody>().velocity, ref _weaponVelocityRef, Time.deltaTime * _pullForce);
+                _weaponInRange.transform.position,
+                _pullTowardsTest.transform.position, 0.13f
+                /*Time.deltaTime * _pullForce*/);
 
+                Quaternion cameraRotation = Quaternion.LookRotation(Camera.main.transform.forward);
+                _weaponInRange.transform.rotation = Quaternion.Lerp(_weaponInRange.transform.rotation, cameraRotation, 0.13f);
+                Debug.Log("Pulling weapon");
             }
-            else if (Input.GetMouseButtonUp(1) && playerIsPulling)
+            else if (Input.GetMouseButtonUp(1))
             {
                 playerIsPulling = false;
             }
         }
     }
 
-
-    
     // TODO: Move this onto another part (maybe hands)
     private void OnCollisionEnter(Collision collision)
     {
         if (playerIsPulling && collision.gameObject.tag.Equals("Weapon"))
         {
-            if (_weaponInRange && _weaponIsInRange)
+            if (!_weaponIsEquipped)
             {
-                // FOR TESTING PURPOSES
-                _isBowEquipped = true;
-                //_bowTestRef.Reload();
-                Destroy(collision.gameObject);
-                Debug.Log("HI");
+                if (_weaponInRange && _weaponIsInRange)
+                {
+                    // FOR TESTING PURPOSES
+                    CheckIfWeaponEquipped(collision.gameObject.name);
+                    playerIsPulling = false;
+                    Destroy(collision.gameObject);
+                    Debug.Log("HI");
+                }
             }
+
         }
     }
     private void OnDrawGizmos()
