@@ -6,7 +6,6 @@ public class WeaponsController : MonoBehaviour
 {
     [Header("Player Logic")]
     [SerializeField] private GameObject _player;
-    [SerializeField] private Transform _playerOrientation;
     [SerializeField] float throwForceWeapons;
     [SerializeField] private Transform _playerHands;
     [SerializeField] private float _pullForce;
@@ -59,7 +58,7 @@ public class WeaponsController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (playerIsPulling)
+        if (playerIsPulling && !_weaponIsEquipped)
         {
             // Testing between Vector3.Lerp & Vector3.SmoothDamp
             _weaponInRange.transform.position = Vector3.Slerp(

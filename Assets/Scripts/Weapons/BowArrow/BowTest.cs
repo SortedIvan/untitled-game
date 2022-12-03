@@ -40,7 +40,7 @@ public class BowTest : MonoBehaviour
     private void Update()
     {
         //_pullValue = PullForce();
-        this.transform.rotation = Quaternion.LookRotation(Camera.main.transform.forward);
+        //this.transform.rotation = Quaternion.LookRotation(Camera.main.transform.forward);
         Shoot();
     }
 
