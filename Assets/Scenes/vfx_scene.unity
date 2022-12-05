@@ -146,16 +146,16 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 26763769}
-  m_LocalRotation: {x: -0, y: 0.23611932, z: -0, w: 0.9717241}
-  m_LocalPosition: {x: 2.35, y: 3.427, z: 6.24}
+  m_LocalRotation: {x: -0, y: -0.12782413, z: -0, w: 0.99179685}
+  m_LocalPosition: {x: 5.079, y: 4.188, z: 5.01}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 471004673}
   - {fileID: 255652428}
   m_Father: {fileID: 0}
   m_RootOrder: 16
-  m_LocalEulerAnglesHint: {x: 0, y: 27.315, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -14.688, z: 0}
 --- !u!1 &54530824
 GameObject:
   m_ObjectHideFlags: 0
@@ -845,7 +845,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 255652427}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.11, y: 0.16, z: 0.79}
+  m_LocalPosition: {x: -1.33, y: 0, z: 2.29}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1148,7 +1148,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 471004672}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -1.34}
+  m_LocalPosition: {x: 0.554, y: 0, z: -1.073}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3225,15 +3225,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4000012832170722, guid: 96b2ec0239d11fa4b9792311efceb8ed, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1.15523
+      value: 1.4819291
       objectReference: {fileID: 0}
     - target: {fileID: 4000012832170722, guid: 96b2ec0239d11fa4b9792311efceb8ed, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1.15523
+      value: 1.4819291
       objectReference: {fileID: 0}
     - target: {fileID: 4000012832170722, guid: 96b2ec0239d11fa4b9792311efceb8ed, type: 3}
       propertyPath: m_LocalScale.z
-      value: 1.15523
+      value: 1.4819291
       objectReference: {fileID: 0}
     - target: {fileID: 4000012832170722, guid: 96b2ec0239d11fa4b9792311efceb8ed, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4916,10 +4916,10 @@ VisualEffect:
       - m_Value: {x: 3, y: 4.66, z: 2.8700004}
         m_Name: Part1
         m_Overridden: 1
-      - m_Value: {x: 1.7350931, y: 3.427, z: 5.049416}
+      - m_Value: {x: 5.8869567, y: 4.188, z: 4.112531}
         m_Name: Part2
         m_Overridden: 1
-      - m_Value: {x: 2.6147852, y: 3.5870001, z: 6.9923887}
+      - m_Value: {x: 3.2118297, y: 4.188, z: 6.887944}
         m_Name: Part3
         m_Overridden: 1
       - m_Value: {x: 3.05, y: 2.43, z: 8.57}
