@@ -31,11 +31,15 @@ public class WeaponsController : MonoBehaviour
     [SerializeField] GameObject shotgunPickablePrefab;
     private bool _shotgunIsEqupped;
 
+    [SerializeField] private GameObject _electricEffect;
+    [SerializeField] private Transform _electricEndPos;
+    [SerializeField] private Transform _electricMidPoint;
+    [SerializeField] private Transform _electricMidPointTwo;
+
 
 
     private void Start()
     {
-
     }
 
     private void Update()
@@ -48,23 +52,41 @@ public class WeaponsController : MonoBehaviour
             if (_weaponInRange && _weaponIsInRange)
             {
                 playerIsPulling = true;
+
             }
         }
         if (Input.GetMouseButtonUp(1))
         {
             playerIsPulling = false;
+            _electricEffect.SetActive(false);
         }
     }
 
     private void FixedUpdate()
     {
+        float playerSpeed = _player.GetComponent<Rigidbody>().velocity.magnitude;
+        float pullSpeed = 0.17f;
+        if (playerSpeed > 9.5f)
+        {
+            pullSpeed = 0.21f;
+        }
+
         if (playerIsPulling && !_weaponIsEquipped)
         {
-            // Testing between Vector3.Lerp & Vector3.SmoothDamp
-            _weaponInRange.transform.position = Vector3.Slerp(
+
+            _electricEffect.SetActive(true);
+
+            // SLERP ----------------------------------------------------------
+            Vector3 slerp = Vector3.Lerp(
             _weaponInRange.transform.position,
-            _pullTowardsTest.transform.position, 0.13f
-            /*Time.deltaTime * _pullForce*/);
+            _pullTowardsTest.transform.position, pullSpeed
+            );
+            // Testing between Vector3.Lerp & Vector3.SmoothDamp
+            _electricEndPos.position = slerp;
+            _weaponInRange.transform.position = slerp;
+
+            _electricMidPoint.position = slerp;
+            _electricMidPointTwo.position = slerp;
 
             Quaternion cameraRotation = Quaternion.LookRotation(Camera.main.transform.forward);
             _weaponInRange.transform.rotation = Quaternion.Lerp(_weaponInRange.transform.rotation, cameraRotation, 0.13f);
@@ -125,9 +147,6 @@ public class WeaponsController : MonoBehaviour
 
     }
 
-
-
-
     private void ResetWeaponInRange()
     {
         if (_weaponInRange)
@@ -144,17 +163,21 @@ public class WeaponsController : MonoBehaviour
     private void DetectWeapon()
     {
         RaycastHit hit;
-        if (Physics.SphereCast(_playerHands.position, sphereCastRadius, Camera.main.transform.forward * range, out hit, range))
+        Vector3 pullHandsPosition = new Vector3(_playerHands.position.x, _playerHands.position.y + 0.2f, _playerHands.position.z);
+        if (Physics.SphereCast(pullHandsPosition, sphereCastRadius, Camera.main.transform.forward * range, out hit, range))
         {
             if (hit.transform.tag.Equals("Weapon"))
             {
                 _weaponIsInRange = true;
                 _weaponInRange = hit.transform.gameObject;
+
                 return;
             }
 
         }
     }
+
+
 
     private void PullWeapon()
     {
@@ -191,6 +214,7 @@ public class WeaponsController : MonoBehaviour
                 if (_weaponInRange && _weaponIsInRange)
                 {
                     // FOR TESTING PURPOSES
+                    _electricEffect.SetActive(false);
                     CheckIfWeaponEquipped(collision.gameObject.name);
                     playerIsPulling = false;
                     Destroy(collision.gameObject);
@@ -202,15 +226,16 @@ public class WeaponsController : MonoBehaviour
     }
     private void OnDrawGizmos()
     {
-        Gizmos.DrawWireSphere(transform.position, range);
+        Gizmos.DrawWireSphere(_playerHands.position, range);
+        Vector3 pullHandsPosition = new Vector3(_playerHands.position.x, _playerHands.position.y + 0.2f, _playerHands.position.z);
         RaycastHit hit;
-        if (Physics.SphereCast(_playerHands.position, sphereCastRadius, Camera.main.transform.forward * range, out hit, range))
+        if (Physics.SphereCast(pullHandsPosition, sphereCastRadius, Camera.main.transform.forward * range, out hit, range))
         {
             Gizmos.color = Color.green;
-            Vector3 sphereCastMidpoint = _playerHands.position + (Camera.main.transform.forward * hit.distance);
+            Vector3 sphereCastMidpoint = pullHandsPosition + (Camera.main.transform.forward * hit.distance);
             Gizmos.DrawWireSphere(sphereCastMidpoint, sphereCastRadius);
             Gizmos.DrawSphere(hit.point, 0.1f);
-            Debug.DrawLine(transform.position, sphereCastMidpoint, Color.green);
+            Debug.DrawLine(pullHandsPosition, sphereCastMidpoint, Color.green);
         }
         else
         {
