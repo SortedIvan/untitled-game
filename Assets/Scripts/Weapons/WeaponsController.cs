@@ -68,7 +68,7 @@ public class WeaponsController : MonoBehaviour
         float pullSpeed = 0.17f;
         if (playerSpeed > 9.5f)
         {
-            pullSpeed = 0.21f;
+            pullSpeed = 0.3f;
         }
 
         if (playerIsPulling && !_weaponIsEquipped)
@@ -79,10 +79,14 @@ public class WeaponsController : MonoBehaviour
             // SLERP ----------------------------------------------------------
             Vector3 slerp = Vector3.Lerp(
             _weaponInRange.transform.position,
-            _pullTowardsTest.transform.position, 0.15f
+            _pullTowardsTest.transform.position, pullSpeed
             );
 
-            slerp.y += 0.2f;
+            // Test velocity null
+            _weaponInRange.GetComponent<Rigidbody>().velocity = Vector3.zero;
+
+
+            slerp.y += 0.1f;
 
             _weaponInRange.transform.position = slerp;
 

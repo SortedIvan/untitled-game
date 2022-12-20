@@ -8,6 +8,8 @@ public class PlayerCamera : MonoBehaviour
     public float ySensitivity;
     public float xSensitivity;
     public GameObject playerOrientation;
+    public GameObject handsObject;
+
     public float cameraDownConstraint;
     public float cameraUpConstraint;
 
@@ -67,6 +69,7 @@ public class PlayerCamera : MonoBehaviour
 
         transform.rotation = Quaternion.Euler(_xRotation, _yRotation, 0);
         playerOrientation.transform.rotation = Quaternion.Euler(0, _yRotation, 0);
+        handsObject.transform.rotation = Quaternion.Euler(0, _yRotation, 0);
     }
 
 
