@@ -79,14 +79,22 @@ public class WeaponsController : MonoBehaviour
             // SLERP ----------------------------------------------------------
             Vector3 slerp = Vector3.Lerp(
             _weaponInRange.transform.position,
-            _pullTowardsTest.transform.position, pullSpeed
+            _pullTowardsTest.transform.position, 0.15f
             );
-            // Testing between Vector3.Lerp & Vector3.SmoothDamp
-            _electricEndPos.position = slerp;
+
+            slerp.y += 0.2f;
+
             _weaponInRange.transform.position = slerp;
 
+            if (Mathf.Abs(_pullTowardsTest.transform.position.x - _weaponInRange.transform.position.x) < 0.05)
+            {
+                _weaponInRange.transform.position = _pullTowardsTest.transform.position;
+            }
+
+            // A
             _electricMidPoint.position = slerp;
             _electricMidPointTwo.position = slerp;
+            _electricEndPos.position = slerp;
 
             Quaternion cameraRotation = Quaternion.LookRotation(Camera.main.transform.forward);
             _weaponInRange.transform.rotation = Quaternion.Lerp(_weaponInRange.transform.rotation, cameraRotation, 0.13f);

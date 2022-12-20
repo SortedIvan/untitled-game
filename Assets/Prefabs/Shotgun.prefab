@@ -27,6 +27,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6968435267056684963}
   - {fileID: 9182598954714413067}
@@ -45,9 +46,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed6fa2397d7b65e44af9f1ce5486e0c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _shotgun: {fileID: 3414960355636430467}
   _shotgunShootPoint: {fileID: 9182598954714413067}
-  _playerOrientation: {fileID: 0}
+  _shootDistance: 100
+  _shootEffect: {fileID: 8752784129424107921, guid: c4e608395059f1d4c8b161ffdef1f77c,
+    type: 3}
+  _gunHitEffect: {fileID: 2080660933528219286, guid: ee9ff624b9d7b9e4c8f92cf27552c406,
+    type: 3}
+  hitForce: 20
+  _recoilScript: {fileID: 0}
 --- !u!1 &7132095571576190661
 GameObject:
   m_ObjectHideFlags: 0
@@ -76,6 +82,7 @@ Transform:
   m_LocalRotation: {x: -0.5, y: 0.5, z: 0.5, w: 0.5}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 199.96939, y: 199.96936, z: 111.09407}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1211612489960442086}
   m_RootOrder: 0
@@ -91,6 +98,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -155,6 +163,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.055, z: 1.4185}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1211612489960442086}
   m_RootOrder: 1
