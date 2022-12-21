@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class WeaponsController : MonoBehaviour
 {
+
+    #region Variables
     [Header("Player Logic")]
     [SerializeField] private GameObject _player;
     [SerializeField] float throwForceWeapons;
@@ -45,10 +47,8 @@ public class WeaponsController : MonoBehaviour
     [SerializeField] private float _pullForce;
     [SerializeField] private float _maxRangeWeaponPickup;
     [SerializeField] private float _pullVelocityY = 4.7f;
-    private bool playerIsPulling;
-
-
-
+    private bool _playerIsPulling;
+    #endregion
 
     private void Start()
     {
@@ -64,13 +64,13 @@ public class WeaponsController : MonoBehaviour
         {
             if (_weaponInRange && _weaponIsInRange)
             {
-                playerIsPulling = true;
+                _playerIsPulling = true;
 
             }
         }
         if (Input.GetMouseButtonUp(1))
         {
-            playerIsPulling = false;
+            _playerIsPulling = false;
             _electricEffect.SetActive(false);
         }
     }
@@ -84,7 +84,7 @@ public class WeaponsController : MonoBehaviour
             pullSpeed = 0.3f;
         }
 
-        if (playerIsPulling && !_weaponIsEquipped)
+        if (_playerIsPulling && !_weaponIsEquipped)
         {
 
             _electricEffect.SetActive(true);
@@ -133,7 +133,7 @@ public class WeaponsController : MonoBehaviour
             {
                 _electricEffect.SetActive(false);
                 CheckIfWeaponEquipped(_weaponInRange.gameObject.name);
-                playerIsPulling = false;
+                _playerIsPulling = false;
                 Destroy(_weaponInRange);
             }
         }
@@ -267,7 +267,7 @@ public class WeaponsController : MonoBehaviour
         {
             if (Input.GetMouseButton(1))
             {
-                playerIsPulling = true;
+                _playerIsPulling = true;
                 // Testing between Vector3.Lerp & Vector3.SmoothDamp
                 _weaponInRange.transform.position = Vector3.Slerp(
                 _weaponInRange.transform.position,
@@ -280,7 +280,7 @@ public class WeaponsController : MonoBehaviour
             }
             else if (Input.GetMouseButtonUp(1))
             {
-                playerIsPulling = false;
+                _playerIsPulling = false;
             }
         }
     }
@@ -288,7 +288,7 @@ public class WeaponsController : MonoBehaviour
     // TODO: Move this onto another part (maybe hands)
     private void OnCollisionEnter(Collision collision)
     {
-        if (playerIsPulling && collision.gameObject.tag.Equals("Weapon"))
+        if (_playerIsPulling && collision.gameObject.tag.Equals("Weapon"))
         {
             if (!_weaponIsEquipped)
             {
@@ -297,7 +297,7 @@ public class WeaponsController : MonoBehaviour
                     // FOR TESTING PURPOSES
                     _electricEffect.SetActive(false);
                     CheckIfWeaponEquipped(collision.gameObject.name);
-                    playerIsPulling = false;
+                    _playerIsPulling = false;
                     Destroy(collision.gameObject);
                     Debug.Log("HI");
                 }

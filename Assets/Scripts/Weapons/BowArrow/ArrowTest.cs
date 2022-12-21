@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ArrowTest : MonoBehaviour
 {
+    #region Variables
     [SerializeField] public float arrowSpeed = 20f;
     [SerializeField] public Transform arrowTip;
     [SerializeField] public Transform arrowShaft;
@@ -11,6 +12,7 @@ public class ArrowTest : MonoBehaviour
     private Rigidbody _arrowRb = null;
     private bool _arrowIsStopped = true;
     private Vector3 _lastArrowPosition = Vector3.zero;
+    #endregion
 
     private void Awake()
     {

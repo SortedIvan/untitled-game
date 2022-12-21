@@ -2,25 +2,17 @@ using UnityEngine;
 
 public class Recoil : MonoBehaviour
 {
-
+    #region Variables
     private Vector3 currentRotation;
     private Vector3 targetRotation;
-
     // Hipfire recoil
     [SerializeField] private float recoilX;
     [SerializeField] private float recoilY;
     [SerializeField] private float recoilZ;
-
     [SerializeField] private float snappiness;
     [SerializeField] private float returnSpeed;
-
     [SerializeField] GameObject PlayerCamera;
-
-
-    void Start()
-    {
-        
-    }
+    #endregion
 
     void Update()
     {

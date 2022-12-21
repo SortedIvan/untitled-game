@@ -2,8 +2,7 @@ using UnityEngine;
 
 public class PlayerCamera : MonoBehaviour
 {
-    // Start is called before the first frame update;
-    
+    #region Variables
     [Header("Camera Options")]
     public float ySensitivity;
     public float xSensitivity;
@@ -17,6 +16,7 @@ public class PlayerCamera : MonoBehaviour
     private float _xRotation;
     private float _yInput;
     private float _xInput;
+    #endregion
 
     /*
         Remarks collected from Unity forums ->

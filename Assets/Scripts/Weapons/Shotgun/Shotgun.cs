@@ -2,12 +2,14 @@ using UnityEngine;
 
 public class Shotgun : MonoBehaviour
 {
+    #region Variables
     [SerializeField] private Transform _shotgunShootPoint;
     [SerializeField] private float _shootDistance = 100f;
     [SerializeField] private GameObject _shootEffect;
     [SerializeField] private GameObject _gunHitEffect;
     [SerializeField] private float hitForce = 20f;
     [SerializeField] Recoil _recoilScript;
+    #endregion
 
     private void Update()
     {
@@ -16,11 +18,6 @@ public class Shotgun : MonoBehaviour
             Debug.Log("SHOOTING");
             Shoot();
         }
-    }
-
-    private void FixedUpdate()
-    {
-
     }
 
     private void Shoot()

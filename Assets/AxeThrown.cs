@@ -12,14 +12,7 @@ public class AxeThrown : MonoBehaviour
 
     void Start()
     {
-        //gameObject.GetComponent<Rigidbody>().AddForce(transform.forward * (_throwForce * _throwSpeed));
         _hasToRotate = true;
-    }
-
-    void Update()
-    {
-        //gameObject.GetComponent<Rigidbody>().AddRelativeTorque(transform.right * _throwForce);
-
     }
 
     private void FixedUpdate()

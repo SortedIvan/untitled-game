@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BowTest : MonoBehaviour
 {
+    #region Variables
     [Header("Assets")]
     [SerializeField] private GameObject _arrowPrefab;
 
@@ -15,12 +16,11 @@ public class BowTest : MonoBehaviour
     public float firePowerMultiplier = 10f;
     public float maxFirePower = 10f;
     public float reloadTime = 0.25f;
-
     private Transform _pullingHand = null;
     private ArrowTest _currentArrow = null;
     private Animator _animator = null;
-
     private float _pullValue = 0.0f;
+    #endregion
 
     private void Awake()
     {
