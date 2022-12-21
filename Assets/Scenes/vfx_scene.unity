@@ -3420,8 +3420,6 @@ MonoBehaviour:
   _player: {fileID: 1522562269}
   throwForceWeapons: 10
   _playerHands: {fileID: 2093887278}
-  _pullForce: 3
-  _maxRangeWeaponPickup: 20
   _pullTowardsTest: {fileID: 2107151093}
   sphereCastRadius: 0.202
   range: 13.1
@@ -3437,10 +3435,15 @@ MonoBehaviour:
   _axePickablePrefab: {fileID: 2923933906621122910, guid: 286e1d97a6b506345a2514c065816b38,
     type: 3}
   _axeThrowPower: 100
+  _throwForce: 40
+  _throwSpeed: 50
   _electricEffect: {fileID: 1783273996}
   _electricEndPos: {fileID: 701259877}
   _electricMidPoint: {fileID: 471004673}
   _electricMidPointTwo: {fileID: 255652428}
+  _pullForce: 3
+  _maxRangeWeaponPickup: 20
+  _pullVelocityY: 0
 --- !u!1001 &1538875035
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5479,8 +5482,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.27113, y: 1.5715666, z: 1.9359708}
-  m_Center: {x: 0.02975926, y: -0.21774106, z: 0.4679854}
+  m_Size: {x: 3.1567452, y: 1.5715666, z: 3.6848798}
+  m_Center: {x: -0.22022116, y: -0.21774106, z: 0.25759017}
 --- !u!1 &2107151093
 GameObject:
   m_ObjectHideFlags: 0

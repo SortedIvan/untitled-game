@@ -206,9 +206,10 @@ GameObject:
   m_Component:
   - component: {fileID: 2582874626978681828}
   - component: {fileID: 2793792924394889061}
+  - component: {fileID: 9091958162730771673}
   m_Layer: 0
   m_Name: AxePickable
-  m_TagString: Untagged
+  m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -220,8 +221,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2923933906621122910}
-  m_LocalRotation: {x: 0.26885006, y: -0.52566034, z: 0.10205789, w: 0.8006154}
-  m_LocalPosition: {x: 6.3832655, y: 3.749977, z: 3.214365}
+  m_LocalRotation: {x: -0.11441385, y: -0.36222693, z: -0.017890995, w: 0.9248681}
+  m_LocalPosition: {x: 7.767506, y: 4.1673737, z: 17.542746}
   m_LocalScale: {x: 0.0034283884, y: 0.0034283884, z: 0.0034283884}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -250,6 +251,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &9091958162730771673
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2923933906621122910}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e920fda1df117a547ad6bc3f2cdba53a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _throwForce: 20
+  _throwSpeed: 30
 --- !u!1 &3945577738187929490
 GameObject:
   m_ObjectHideFlags: 0

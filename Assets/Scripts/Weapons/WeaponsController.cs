@@ -8,12 +8,10 @@ public class WeaponsController : MonoBehaviour
     [SerializeField] private GameObject _player;
     [SerializeField] float throwForceWeapons;
     [SerializeField] private Transform _playerHands;
-    [SerializeField] private float _pullForce;
-    [SerializeField] private float _maxRangeWeaponPickup;
     [SerializeField] private GameObject _pullTowardsTest;
     [Range(0.1f, 1f)] public float sphereCastRadius;
     [Range(1f, 100f)] public float range;
-    private bool playerIsPulling;
+
 
     [Header("Main weapon logic")]
     [SerializeField] private GameObject _weaponInRange;
@@ -36,12 +34,19 @@ public class WeaponsController : MonoBehaviour
     [SerializeField] private GameObject _axePickablePrefab;
     [SerializeField] private float _axeThrowPower;
     private bool _axeIsEqupped;
+    [SerializeField] private float _throwForce = 20f;
+    [SerializeField] private float _throwSpeed = 30f;
 
-
+    [Header("Pulling")]
     [SerializeField] private GameObject _electricEffect;
     [SerializeField] private Transform _electricEndPos;
     [SerializeField] private Transform _electricMidPoint;
     [SerializeField] private Transform _electricMidPointTwo;
+    [SerializeField] private float _pullForce;
+    [SerializeField] private float _maxRangeWeaponPickup;
+    [SerializeField] private float _pullVelocityY = 4.7f;
+    private bool playerIsPulling;
+
 
 
 
@@ -52,6 +57,7 @@ public class WeaponsController : MonoBehaviour
     private void Update()
     {
         ThrowWeapon();
+        ThrowAxe();
         DetectWeapon();
         ResetWeaponInRange();
         if (Input.GetMouseButton(1))
@@ -72,7 +78,7 @@ public class WeaponsController : MonoBehaviour
     private void FixedUpdate()
     {
         float playerSpeed = _player.GetComponent<Rigidbody>().velocity.magnitude;
-        float pullSpeed = 0.17f;
+        float pullSpeed = 0.11f;
         if (playerSpeed > 9.5f)
         {
             pullSpeed = 0.3f;
@@ -93,14 +99,26 @@ public class WeaponsController : MonoBehaviour
             _weaponInRange.GetComponent<Rigidbody>().velocity = Vector3.zero;
 
 
-            slerp.y += 0.1f;
+
+            if (!(slerp.y >= _pullVelocityY))
+            {
+                slerp.y += 0.1f;
+                Debug.Log(slerp.y);
+            }
+
 
             _weaponInRange.transform.position = slerp;
 
+
+            // Check if the point is very close
             if (Mathf.Abs(_pullTowardsTest.transform.position.x - _weaponInRange.transform.position.x) < 0.05)
             {
                 _weaponInRange.transform.position = _pullTowardsTest.transform.position;
             }
+
+            Debug.Log("HI");
+            float distance = Vector3.Distance(_weaponInRange.transform.position, _pullTowardsTest.transform.position);
+
 
             // A
             _electricMidPoint.position = slerp;
@@ -110,6 +128,14 @@ public class WeaponsController : MonoBehaviour
             Quaternion cameraRotation = Quaternion.LookRotation(Camera.main.transform.forward);
             _weaponInRange.transform.rotation = Quaternion.Lerp(_weaponInRange.transform.rotation, cameraRotation, 0.13f);
             Debug.Log("Pulling weapon");
+
+            if (distance < 1f)
+            {
+                _electricEffect.SetActive(false);
+                CheckIfWeaponEquipped(_weaponInRange.gameObject.name);
+                playerIsPulling = false;
+                Destroy(_weaponInRange);
+            }
         }
     }
 
@@ -179,10 +205,29 @@ public class WeaponsController : MonoBehaviour
                 axeThrown.transform.parent = null;
                 axeThrown.GetComponent<Rigidbody>().velocity = Camera.main.transform.forward * throwForceWeapons;
             }
-
-
         }
+    }
 
+    private void ThrowAxe()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            if (_axeIsEqupped)
+            {
+                _axePosition.SetActive(false);
+                _axeIsEqupped = false;
+                _weaponIsEquipped = false;
+
+                _axePickablePrefab.transform.rotation = _axePosition.transform.rotation;
+                _axePickablePrefab.transform.position = _axePosition.transform.position;
+                GameObject axeThrown = Instantiate(_axePickablePrefab);
+                axeThrown.transform.parent = null;
+                axeThrown.GetComponent<Rigidbody>().AddForce(Camera.main.transform.forward * (_throwForce * _throwSpeed));
+
+                // TODO:CHANGE
+                _weaponInRange = axeThrown;
+            }
+        }
     }
 
     private void ResetWeaponInRange()
@@ -214,8 +259,6 @@ public class WeaponsController : MonoBehaviour
 
         }
     }
-
-
 
     private void PullWeapon()
     {
@@ -262,6 +305,7 @@ public class WeaponsController : MonoBehaviour
 
         }
     }
+
     private void OnDrawGizmos()
     {
         Gizmos.DrawWireSphere(_playerHands.position, range);
