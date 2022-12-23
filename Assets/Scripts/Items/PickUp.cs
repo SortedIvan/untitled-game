@@ -37,7 +37,7 @@ public class PickUp : MonoBehaviour
         //Debug.DrawLine(_playerCamera.transform.position, _playerCamera.transform.position * _pickUpRange);
         if (Physics.Raycast(selectionRay, out HitInfo, _pickUpRange))
         {
-            Debug.Log(HitInfo.transform.gameObject.name + " is the object");
+            //Debug.Log(HitInfo.transform.gameObject.name + " is the object");
             var selectableTransform = HitInfo.transform;
             if (selectableTransform.CompareTag(_selectableItemTag))
             {

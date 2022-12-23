@@ -1,6 +1,8 @@
 using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
+
+    #region Variables
     [Header("Movement Control")]
     public float movementSpeed;
     public float sprintMultiplier;
@@ -32,6 +34,7 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody _playerRb;
     private bool _isPlayerSprint;
     private bool _isReadyToJump;
+    #endregion
 
     private void Start()
     {
