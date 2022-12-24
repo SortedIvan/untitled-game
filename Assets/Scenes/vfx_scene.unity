@@ -2855,11 +2855,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: GroggleEnemy (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 3909081365038973494, guid: 592567e48344dff47b8c6105e0aa3b11,
+        type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 3909081365601500405, guid: 592567e48344dff47b8c6105e0aa3b11,
         type: 3}
       propertyPath: _player
       value: 
       objectReference: {fileID: 1522562271}
+    - target: {fileID: 3909081365601500407, guid: 592567e48344dff47b8c6105e0aa3b11,
+        type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 592567e48344dff47b8c6105e0aa3b11, type: 3}
 --- !u!1 &1271096378
@@ -3582,6 +3592,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: GroggleEnemy (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 3909081365038973494, guid: 592567e48344dff47b8c6105e0aa3b11,
+        type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 3909081365601500400, guid: 592567e48344dff47b8c6105e0aa3b11,
         type: 3}
       propertyPath: m_Constraints
@@ -3592,6 +3607,11 @@ PrefabInstance:
       propertyPath: _player
       value: 
       objectReference: {fileID: 1522562271}
+    - target: {fileID: 3909081365601500407, guid: 592567e48344dff47b8c6105e0aa3b11,
+        type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 592567e48344dff47b8c6105e0aa3b11, type: 3}
 --- !u!1 &1522562269
@@ -4441,11 +4461,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: GroggleEnemy (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 3909081365038973494, guid: 592567e48344dff47b8c6105e0aa3b11,
+        type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 3909081365601500405, guid: 592567e48344dff47b8c6105e0aa3b11,
         type: 3}
       propertyPath: _player
       value: 
       objectReference: {fileID: 1522562271}
+    - target: {fileID: 3909081365601500407, guid: 592567e48344dff47b8c6105e0aa3b11,
+        type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 592567e48344dff47b8c6105e0aa3b11, type: 3}
 --- !u!1 &1707857941
@@ -4936,11 +4966,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: GroggleEnemy (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 3909081365038973494, guid: 592567e48344dff47b8c6105e0aa3b11,
+        type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 3909081365601500405, guid: 592567e48344dff47b8c6105e0aa3b11,
         type: 3}
       propertyPath: _player
       value: 
       objectReference: {fileID: 1522562271}
+    - target: {fileID: 3909081365601500407, guid: 592567e48344dff47b8c6105e0aa3b11,
+        type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 592567e48344dff47b8c6105e0aa3b11, type: 3}
 --- !u!1 &1826648888
@@ -6428,16 +6468,6 @@ PrefabInstance:
       propertyPath: _player
       value: 
       objectReference: {fileID: 1522562271}
-    - target: {fileID: 3909081365601500405, guid: 592567e48344dff47b8c6105e0aa3b11,
-        type: 3}
-      propertyPath: _airDrag
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3909081365601500405, guid: 592567e48344dff47b8c6105e0aa3b11,
-        type: 3}
-      propertyPath: _groundDrag
-      value: 3.5
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 592567e48344dff47b8c6105e0aa3b11, type: 3}
 --- !u!1001 &7932435166603930925
