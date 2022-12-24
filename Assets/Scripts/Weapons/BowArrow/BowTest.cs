@@ -71,7 +71,7 @@ public class BowTest : MonoBehaviour
         GameObject arrow = Instantiate(_arrowPrefab, arrowSocket);
         // Orientate it forward
 
-        arrow.transform.localPosition = new Vector3(0, 0, 5.4f);
+        arrow.transform.localPosition = new Vector3(0, 0, 0);
         arrow.transform.localEulerAngles = arrowSocket.transform.up;
 
         // Set the current arrow correctly
