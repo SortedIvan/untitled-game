@@ -34,10 +34,42 @@ public class Shotgun : MonoBehaviour
             // Do hit effects here
             if (hit.rigidbody)
             {
+               
+                if (hit.collider.gameObject.tag.Equals("Enemy"))
+                {
+                    float distanceBetweenPlayerAndEnemy = Vector3.Distance(hit.collider.gameObject.transform.position, transform.position);
+                    string enemyType = hit.collider.gameObject.name;
+
+                    hit.rigidbody.AddForce(Vector3.Scale(_shotgunShootPoint.forward, (hitForceVector * hitForce * 0.5f)), ForceMode.Impulse);
+                    hit.rigidbody.gameObject.GetComponent<EnemyAI>().EnemyTakeDamage(DamageEnemy(enemyType, distanceBetweenPlayerAndEnemy));
+                }
                 hit.rigidbody.AddForce(Vector3.Scale(_shotgunShootPoint.forward, (hitForceVector * hitForce)), ForceMode.Impulse);
             }
             GameObject effect = Instantiate(_gunHitEffect, hit.point, Quaternion.LookRotation(hit.normal));
             Destroy(effect, 1f);
         }
+    }
+
+
+    // Function that damages enemies based on their 
+    private float DamageEnemy(string enemyType, float distanceToEnemy)
+    {
+        if (enemyType.Contains("Groggle"))
+        {
+            if (distanceToEnemy <= 5f)
+            {
+                return 100f;
+            }
+            else if (distanceToEnemy > 5f && distanceToEnemy <= 20f)
+            {
+                return 50f;
+            }
+            else
+            {
+                return 20f;
+            }
+
+        }
+        return 0f;
     }
 }

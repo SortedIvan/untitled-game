@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -7,6 +8,8 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] private Transform _player;
     [SerializeField] private LayerMask _playerMask;
     [SerializeField] private LayerMask _groundMask;
+    private Rigidbody _enemyRb;
+    private bool _isOnGround;
 
     // Enemy patrolling
     [SerializeField] private Vector3 _walkPoint;
@@ -16,7 +19,11 @@ public class EnemyAI : MonoBehaviour
     // Enemy attacking
     [SerializeField] private float _timeBetweenAttacks;
     [SerializeField] private GameObject _projectile;
+    [SerializeField] private float _leapUpPower;
+    [SerializeField] private float _leapForwardPower;
     private bool _alreadyAttacked;
+    private bool _enemyAttacking;
+    private bool _enemyLastAttacked;
 
     // Enemy states
     [SerializeField] private float _sightRange;
@@ -27,71 +34,77 @@ public class EnemyAI : MonoBehaviour
     // Enemy status
     [SerializeField] private float _enemyHealth;
 
+    // Enemy friction
+    [SerializeField] private float _groundDrag;
+    [SerializeField] private float _airDrag;
+
+
+
     private void Awake()
     {
         _player = GameObject.Find("Player").transform;
         _agent = GetComponent<NavMeshAgent>();
+        _enemyRb = GetComponent<Rigidbody>();
     }
 
     private void Update()
     {
+
+        CheckIsOnGround();
+        ApplyFriction();
         // Check for sight and attack range
-        _playerIsInSightRange = Physics.CheckSphere(transform.position, _sightRange, _playerMask);
-        
-        if (Physics.CheckSphere(transform.position, _attackRange, _playerMask))
+        //_playerIsInSightRange = Physics.CheckSphere(transform.position, _sightRange, _playerMask);
+
+        if (Vector3.Distance(transform.position, _player.position) < _sightRange)
         {
-            Debug.Log("Player in range somehow");
+            _playerIsInSightRange = true;
+        }
+        else
+        {
+            _playerIsInSightRange = false;
+        }
+
+        if (Vector3.Distance(transform.position, _player.position) < _attackRange && _playerIsInSightRange)
+        {
             _playerInAttackRange = true;
         }
         else
         {
             _playerInAttackRange = false;
         }
-        
+
         if (_playerIsInSightRange && !_playerInAttackRange)
         {
-            EnemyChase();
+            if (_isOnGround)
+            {
+                EnemyChase();
+            }
+
         }
 
         if (_playerInAttackRange && _playerInAttackRange)
         {
+            
             EnemyAttack();
-        }
-    }
-
-
-    private void SearchForWalkPoint()
-    {
-        float randomZ = Random.Range(-_walkPointRange, _walkPointRange);
-        float randomX = Random.Range(-_walkPointRange, _walkPointRange);
-
-        _walkPoint = new Vector3(transform.position.x + randomX, transform.position.y, transform.position.z + randomZ);
-
-        if (Physics.Raycast(_walkPoint, -transform.up, 2f, _groundMask))
-        {
-            _walkPointSet = true;
         }
     }
 
     private void EnemyChase()
     {
-        //_agent.SetDestination(_player.position);
+        ResetAgent();
         this.gameObject.GetComponent<NavMeshAgent>().destination = _player.transform.position;
     }
 
     private void EnemyAttack()
     {
-        _agent.SetDestination(transform.position);
+        //_agent.SetDestination(transform.position);
 
         transform.LookAt(_player);
 
         if (!_alreadyAttacked)
         {
             // Attacking here
-            //Rigidbody rb = Instantiate(_projectile, transform.position, Quaternion.identity).GetComponent<Rigidbody>();
-            //rb.AddForce(transform.forward * 32f, ForceMode.Impulse);
-            //rb.AddForce(transform.up * 8f, ForceMode.Impulse);
-
+            LeapTowardsPlayer();
             _alreadyAttacked = true;
             Invoke(nameof(ResetAttack), _timeBetweenAttacks);
         }
@@ -102,10 +115,10 @@ public class EnemyAI : MonoBehaviour
         _alreadyAttacked = false;
     }
 
-    public void EnemyTakeDamage(int damage)
+    public void EnemyTakeDamage(float damage)
     {
         _enemyHealth -= damage;
-        if (_enemyHealth <= 0) Invoke(nameof(KillEnemy), .5f); 
+        if (_enemyHealth <= 0f) Invoke(nameof(KillEnemy), .5f); 
     }
 
     private void KillEnemy()
@@ -120,4 +133,42 @@ public class EnemyAI : MonoBehaviour
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, _sightRange);
     }
+
+    private void LeapTowardsPlayer()
+    {
+        _enemyRb.isKinematic = false;
+        _agent.enabled = false;
+        _enemyAttacking = true;
+        _enemyRb.AddForce(transform.up * _leapUpPower, ForceMode.Impulse);
+        _enemyRb.AddForce(transform.forward * _leapForwardPower, ForceMode.Impulse);
+    }
+
+    private void CheckIsOnGround()
+    {
+        _isOnGround = Physics.Raycast(transform.position, Vector3.down, 2.1f, _groundMask);
+    }
+
+    private void ResetAgent()
+    {
+        if (_enemyAttacking)
+        {
+            _enemyAttacking = false;
+            _agent.enabled = true;
+            _enemyRb.isKinematic = true;
+        }
+    }
+
+    private void ApplyFriction()
+    {
+        if (_isOnGround)
+        {
+            _enemyRb.drag = _groundDrag;
+        }
+        else if (!_isOnGround)
+        {
+            _enemyRb.drag = _airDrag;
+
+        }
+    }
+
 }
